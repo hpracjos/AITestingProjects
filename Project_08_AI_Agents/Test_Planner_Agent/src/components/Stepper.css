@@ -1,0 +1,80 @@
+.stepper {
+  display: flex;
+  align-items: center;
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  padding: 4px;
+  gap: 0;
+  overflow: hidden;
+}
+
+.stepper-step {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  padding: 12px var(--space-lg);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--gray-400);
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: default;
+  transition: all var(--transition-base);
+  position: relative;
+}
+
+.stepper-step.active {
+  background: var(--primary-light);
+  color: var(--primary);
+  font-weight: 600;
+  box-shadow: 0 1px 3px rgba(59, 107, 245, 0.1);
+}
+
+.stepper-step.completed {
+  color: var(--primary);
+  cursor: pointer;
+}
+
+.stepper-step.completed:hover {
+  background: var(--gray-50);
+}
+
+.stepper-indicator {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.stepper-step.active .stepper-indicator {
+  background: var(--primary);
+  color: var(--white);
+}
+
+.stepper-step.completed .stepper-indicator {
+  background: var(--success);
+  color: var(--white);
+}
+
+.stepper-step:not(.active):not(.completed) .stepper-indicator {
+  background: var(--gray-100);
+  color: var(--gray-400);
+}
+
+.stepper-label {
+  white-space: nowrap;
+}
+
+.stepper-connector {
+  display: none;
+}

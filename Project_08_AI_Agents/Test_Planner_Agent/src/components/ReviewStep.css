@@ -1,0 +1,175 @@
+.review-step {
+  max-width: 100%;
+}
+
+/* Connection Bar */
+.review-connection-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-md) var(--space-lg);
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--space-xl);
+}
+
+.review-connection-info {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--gray-700);
+}
+
+.text-primary {
+  color: var(--primary);
+}
+
+/* Issues Header */
+.issues-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: var(--space-xl);
+}
+
+.issues-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+/* Issues Empty */
+.issues-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
+  padding: var(--space-5xl) 0;
+  text-align: center;
+}
+
+/* Issues List */
+.issues-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.issue-item {
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: all var(--transition-fast);
+}
+
+.issue-item:hover {
+  border-color: var(--gray-300);
+  box-shadow: var(--shadow-sm);
+}
+
+.issue-item.selected {
+  border-color: var(--primary);
+  background: var(--primary-subtle);
+}
+
+.issue-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-md) var(--space-lg);
+  cursor: pointer;
+}
+
+.issue-checkbox {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  color: var(--gray-400);
+  flex-shrink: 0;
+  display: flex;
+}
+
+.issue-type-icon {
+  flex-shrink: 0;
+  display: flex;
+}
+
+.issue-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.issue-key {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.issue-summary {
+  font-size: 0.875rem;
+  color: var(--gray-700);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.issue-meta {
+  display: flex;
+  gap: var(--space-xs);
+  flex-shrink: 0;
+}
+
+.issue-expand {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--gray-400);
+  padding: 4px;
+  display: flex;
+  flex-shrink: 0;
+}
+
+/* Issue Details */
+.issue-details {
+  padding: var(--space-lg) var(--space-lg) var(--space-lg) 56px;
+  border-top: 1px solid var(--gray-100);
+  background: var(--gray-50);
+}
+
+.issue-detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-xl);
+}
+
+.issue-criteria {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8125rem;
+  color: var(--gray-600);
+  white-space: pre-wrap;
+  background: var(--white);
+  padding: var(--space-md);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--gray-200);
+  line-height: 1.5;
+}
+
+.issue-labels {
+  display: flex;
+  gap: var(--space-xs);
+  flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+  .issue-detail-grid {
+    grid-template-columns: 1fr;
+  }
+  .issue-meta {
+    display: none;
+  }
+}
