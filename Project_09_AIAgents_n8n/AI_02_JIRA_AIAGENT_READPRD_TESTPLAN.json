@@ -1,0 +1,162 @@
+{
+  "name": "AI_02_JIRA_AIAGENT_READPRD_TESTPLAN",
+  "nodes": [
+    {
+      "parameters": {
+        "public": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        -400,
+        -224
+      ],
+      "id": "8de62c52-dc15-474c-a500-87f14ea3d146",
+      "name": "When chat message received",
+      "webhookId": "a99f7a5e-7e6c-4a30-b798-0f8dfa2b362c"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "A user will give you a ticket ID. You need to\nread that ID from the Jira tool and based on the\nJira ID, you need to create a test plan. "
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        -192,
+        -224
+      ],
+      "id": "e64c053d-db80-46ab-92c9-ace71b5e84c2",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": "openai/gpt-oss-120b",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        -352,
+        16
+      ],
+      "id": "eb6dc241-e222-4106-8f08-18e0361642c5",
+      "name": "LLM Brain Groq",
+      "credentials": {
+        "groqApi": {
+          "id": "SXOzMUBBvNSpz45I",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "contextWindowLength": 10
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.4,
+      "position": [
+        -208,
+        32
+      ],
+      "id": "80037fbb-cb56-42ec-800e-2cb08431f5d0",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "content": "# Objective \nRead JIRA ticket or story or Bug and and create Test Plan based on that"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1136,
+        -256
+      ],
+      "typeVersion": 1,
+      "id": "5f83e431-7433-4b98-9a3b-98591a89fec2",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "issueKey": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Issue_Key', ``, 'string') }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.jiraTool",
+      "typeVersion": 1,
+      "position": [
+        -48,
+        -16
+      ],
+      "id": "24e4d351-7fe1-4207-a167-48b00f700051",
+      "name": "READ a Ticket",
+      "credentials": {
+        "jiraSoftwareCloudApi": {
+          "id": "uoZ4dxqO3QXLX3Mg",
+          "name": "Jira SW Cloud account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LLM Brain Groq": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "READ a Ticket": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "19d9893c-f1b1-47d0-a458-d03678adb571",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "928ae2b9a7fc8fb70d30905ee0169a844671204432190dc0f60708b7fbdb93a3"
+  },
+  "id": "FCaTEiBIcf4hRQbP",
+  "tags": []
+}
