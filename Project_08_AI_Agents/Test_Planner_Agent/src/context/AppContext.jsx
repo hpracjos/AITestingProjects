@@ -1,4 +1,4 @@
-import { createContext, useContext, useReducer, useCallback } from 'react';
+import { createContext, useContext, useReducer, useCallback, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 const AppContext = createContext(null);
@@ -197,7 +197,29 @@ function appReducer(state, action) {
 }
 
 export function AppProvider({ children }) {
-  const [state, dispatch] = useReducer(appReducer, initialState);
+  // Load initial state from localStorage if available
+  const loadState = () => {
+    try {
+      const saved = localStorage.getItem('stlc360_state');
+      if (saved) {
+        return { ...initialState, ...JSON.parse(saved) };
+      }
+    } catch (e) {
+      console.error('Failed to load state', e);
+    }
+    return initialState;
+  };
+
+  const [state, dispatch] = useReducer(appReducer, initialState, loadState);
+
+  // Save to localStorage on every change
+  useEffect(() => {
+    try {
+      localStorage.setItem('stlc360_state', JSON.stringify(state));
+    } catch (e) {
+      console.error('Failed to save state', e);
+    }
+  }, [state]);
 
   const showToast = useCallback((message, type = 'info') => {
     dispatch({ type: 'SET_TOAST', payload: { message, type } });

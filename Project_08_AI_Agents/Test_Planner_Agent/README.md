@@ -2,14 +2,17 @@
 
 **STLC360 AI** is an enterprise-grade intelligent Software Testing Life Cycle management platform designed for Fortune 500 consulting style reliability. This project serves as a comprehensive Test Planning Agent, enabling QA teams, SDETs, and testing professionals to automatically generate professional test plans from project requirements and Jira user stories.
 
-## 🚀 Key Features
+## 🚀 Key Features & Capabilities
 
-* **Intelligent Test Planning:** Connects to powerful Large Language Models (LLMs) including Ollama (local), Groq, and Grok to analyze user stories and generate rich, detailed test plans.
-* **Standardized Fortune 500 Templates:** Test plans are generated using a robust, 12-section template (covering Scope, Inclusions, Strategy, Defect Reporting, and Entry/Exit Criteria) ensuring consistency across all enterprise projects.
-* **Dynamic Integrations:** Connects directly to project management and test management tools. Currently supports **Jira**, with upcoming support for Azure DevOps (ADO), TestRail, Zephyr, and Xray.
-* **AI-Powered Analysis:** Identifies edge cases, boundary conditions, and acceptance criteria automatically from the context provided in your user stories.
-* **Premium Enterprise UI/UX:** Built with React, featuring a sleek, responsive, and accessible interface. Uses a corporate "Midnight Blue, Teal, and Silver Gray" palette with full **Light and Dark Mode** support.
-* **Export and Share:** Easily copy the generated test plan to your clipboard, print it, or export it as a Markdown (`.md`) file to embed in your documentation or Confluence pages.
+* **Intelligent Test Planning:** Connects to powerful Large Language Models (LLMs) including Ollama (local) and Groq to analyze user stories and generate rich, detailed test plans natively in markdown format.
+* **Deterministic Python Backend Engine:** Follows the A.N.T. 3-Layer Architecture by separating frontend visual logic from backend deterministic engines. The Vite server seamlessly spawns local Python tools (`jira_fetch.py`, `llm_generate.py`, `confluence_publish.py`) to execute complex logic natively.
+* **Live Jira Integration:** Securely authenticates with Atlassian Cloud to fetch real live User Stories, Epics, and Bugs dynamically by using the Jira v3 API.
+* **Confluence Publishing:** Directly push the AI-generated Enterprise Test Plans to your Atlassian Confluence spaces with a single click via native markdown-to-html conversion. 
+* **Secure UI Configuration:** Enter your LLM and Jira credentials right in the React Setup Wizard, which automatically synchronizes securely into your local `.env` backend file.
+* **Persistent History & Session Management:** Entire wizard states, previously generated plans, and fetched issue states are securely persisted in browser `localStorage`.
+* **Standardized Fortune 500 Templates:** Test plans are structured robustly, ensuring absolute consistency across all enterprise projects.
+* **Premium Enterprise UI/UX:** Built with React, featuring a sleek, responsive interface with a corporate "Midnight Blue, Teal, and Silver Gray" palette with full **Light and Dark Mode** support.
+* **Export and Share:** Easily copy the generated test plan, print it, export it as a Markdown (`.md`) file, or immediately publish it.
 
 ## 🛠️ Technology Stack
 

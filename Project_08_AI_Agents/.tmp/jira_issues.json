@@ -1,0 +1,48 @@
+[
+  {
+    "key": "VMOAPP-2",
+    "summary": "Task 2",
+    "description": {
+      "type": "doc",
+      "version": 1,
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "given login "
+            }
+          ],
+          "attrs": {
+            "localId": "1c9cd453c574"
+          }
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "that i can login "
+            }
+          ],
+          "attrs": {
+            "localId": "a342d9facb68"
+          }
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "when i enter pwd"
+            }
+          ],
+          "attrs": {
+            "localId": "4cf13f3ab53d"
+          }
+        }
+      ]
+    }
+  }
+]

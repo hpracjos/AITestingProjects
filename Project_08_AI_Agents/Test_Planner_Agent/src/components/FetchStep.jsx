@@ -79,13 +79,32 @@ export default function FetchStep() {
       return;
     }
     setFetching(true);
-    // Simulate API call
-    await new Promise(r => setTimeout(r, 2000));
-    dispatch({ type: 'SET_ISSUES', payload: MOCK_ISSUES });
-    setFetching(false);
-    showToast(`Fetched ${MOCK_ISSUES.length} issues successfully!`, 'success');
-    // Auto-advance to review
-    dispatch({ type: 'SET_STEP', payload: 3 });
+    try {
+      const res = await fetch('/api/fetch', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ projectKey: state.fetchForm.projectKey })
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Failed to fetch');
+      
+      const issues = Array.isArray(data) ? data : (data.issues || []);
+      const processedIssues = issues.map((i, idx) => ({
+        ...i,
+        id: i.key || String(idx),
+        type: 'Story',
+        priority: 'High',
+        status: 'To Do'
+      }));
+      
+      dispatch({ type: 'SET_ISSUES', payload: processedIssues });
+      showToast(`Fetched ${processedIssues.length} issues successfully!`, 'success');
+      dispatch({ type: 'SET_STEP', payload: 3 });
+    } catch (err) {
+      showToast(`Error: ${err.message}`, 'error');
+    } finally {
+      setFetching(false);
+    }
   };
 
   return (

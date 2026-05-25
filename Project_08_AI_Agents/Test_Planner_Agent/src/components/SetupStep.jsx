@@ -41,12 +41,27 @@ export default function SetupStep() {
   const activeConnection = state.connections.find(c => c.id === state.activeConnectionId);
   const activeLlm = state.llmConnections.find(c => c.id === state.activeLlmConnectionId);
 
-  const handleSaveConnection = (e) => {
+  const handleSaveConnection = async (e) => {
     e.preventDefault();
     if (!connForm.name || !connForm.url || !connForm.email || !connForm.apiToken) {
       showToast('Please fill in all fields', 'error');
       return;
     }
+
+    try {
+      await fetch('/api/save-env', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          JIRA_URL: connForm.url,
+          JIRA_EMAIL: connForm.email,
+          JIRA_API_TOKEN: connForm.apiToken
+        })
+      });
+    } catch (err) {
+      console.error('Failed to save to .env', err);
+    }
+
     dispatch({ type: 'ADD_CONNECTION', payload: { ...connForm, type: 'jira' } });
     setConnForm({ name: '', url: '', email: '', apiToken: '' });
     setShowNewConnection(false);
@@ -66,13 +81,28 @@ export default function SetupStep() {
     showToast('Connection test successful!', 'success');
   };
 
-  const handleSaveLlm = (e) => {
+  const handleSaveLlm = async (e) => {
     e.preventDefault();
     if (!llmForm.provider || !llmForm.apiKey) {
       showToast('Please fill in required LLM fields', 'error');
       return;
     }
     const provider = LLM_PROVIDERS.find(p => p.provider === llmForm.provider);
+
+    try {
+      const payload = {};
+      if (llmForm.provider === 'groq') payload.GROQ_API_KEY = llmForm.apiKey;
+      if (llmForm.provider === 'ollama') payload.OLLAMA_BASE_URL = llmForm.apiUrl || provider?.defaultUrl;
+      
+      await fetch('/api/save-env', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+    } catch (err) {
+      console.error('Failed to save to .env', err);
+    }
+
     dispatch({
       type: 'ADD_LLM_CONNECTION',
       payload: {
